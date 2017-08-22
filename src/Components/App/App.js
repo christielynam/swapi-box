@@ -23,8 +23,18 @@ class App extends Component {
       this.fetchHomeworld(data[1].results)
       this.fetchSpecies(data[1].results)
       this.fetchResidents(data[2].results)
+      this.cleanData(data)
       this.setState({data: data})
     }).catch((e) => {console.log(e)})
+  }
+
+  cleanData(data) {
+    console.log(data);
+    const mappedData = data[1].results.map(obj => {
+      Object.assign({}, {Name: obj.name}, {Homeworld: obj.Homeworld}, {Species: obj.Species}, {Population: obj.Population})})
+
+    console.log(mappedData);
+
   }
 
   fetchHomeworld(data) {
@@ -54,17 +64,18 @@ class App extends Component {
   }
 
   fetchResidents(data) {
-    const specificResidentsData = data.map( (residents, i) => {
+    // console.log(data)
+    const specificResidentsData = data.map( (planets, i) => {
       const newArray = [];
 
-      const specificResidents = residents.residents.map((link, i) => {
+      const specificResidents = planets.residents.map((link, i) => {
         return fetch(link)
         .then(res => res.json())
       })
       return Promise.all(specificResidents).then( people => {
         people.map((person, i) => {
           newArray.push(person.name)
-          Object.assign(residents, {Residents: newArray})
+          Object.assign(planets, {Residents: newArray})
         })
       })
     })
@@ -72,17 +83,16 @@ class App extends Component {
 
   render() {
     const { data } = this.state
-    console.log(data)
 
     if(data) {
       return (
         <div className="App">
-        <Scroll data={this.state.data[0].results}/>
+        <Scroll data={data[0].results}/>
         <Button buttonText='people' />
         <Button buttonText='planets' />
         <Button buttonText='vehicles' />
         <Button buttonText='View Favorites' />
-        <CardContainer />
+        <CardContainer cardType={data[1].results} />
         </div>
       )
     } else {

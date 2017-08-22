@@ -6,7 +6,9 @@ const Scroll = ({data}) => {
   const text = data[randomIndex].opening_crawl
   return (
     <div>
-      <div className='fade'></div>
+      <div className='fade'>
+        <h1 className='title'>SWAPI-BOX</h1>
+      </div>
       <div className='star-wars'>
         <div className='crawl'>
           <p className='crawl-text'>{text}</p>
