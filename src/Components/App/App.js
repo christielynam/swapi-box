@@ -7,35 +7,47 @@ import CardContainer from '../CardContainer/CardContainer';
 class App extends Component {
   constructor() {
     super();
-    this.data = []
     this.state = {
-      data: []
+      data: null
     }
-    this.retrieveData = this.retrieveData.bind(this)
+    this.retrieveData()
   }
 
-  retrieveData(data) {
-    fetch(`https://swapi.co/api/${data}/`)
-    .then(data => data.json())
-    .then(data => {
-      this.data = data.results
-      // this.setState({
-      //   data: data.results
-      // })
-    })
+
+
+  retrieveData() {
+    const films = fetch('https://swapi.co/api/films/').then(data => data.json())
+    const people = fetch('https://swapi.co/api/people/').then(data => data.json())
+    const planets = fetch('https://swapi.co/api/planets/').then(data => data.json())
+    const vehicles = fetch('https://swapi.co/api/vehicles/').then(data => data.json())
+
+    return Promise.all([films, people, planets, vehicles])
+    .then((data) => {
+      this.setState({data: data})
+    }).catch((e) => {console.log(e)})
   }
+
   render() {
-    return (
-      <div className="App">
-        <Scroll retrieveData={this.retrieveData} />
+    const { data } = this.state
+
+    if(data) {
+      return (
+        <div className="App">
+        <Scroll data={this.state.data[0].results}/>
         <Button buttonText='people' />
         <Button buttonText='planets' />
         <Button buttonText='vehicles' />
         <Button buttonText='View Favorites' />
         <CardContainer />
-
-      </div>
-    );
+        </div>
+      )
+    } else {
+      return (
+        <div>
+          Loading
+        </div>
+      )
+    }
   }
 }
 

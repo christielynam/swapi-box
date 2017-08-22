@@ -1,11 +1,11 @@
 import React from 'react';
 
-const Scroll = ({ retrieveData }) => {
-  const scrollText = retrieveData('films')
-
+const Scroll = ({data}) => {
+  const randomIndex = Math.floor(Math.random() * (7 - 0 + 1))
+  const text = data[randomIndex].opening_crawl
   return (
     <div className='scroll'>
-      <marquee>{scrollText}</marquee>
+      <p>{text}</p>
     </div>
   )
 }
