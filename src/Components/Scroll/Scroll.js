@@ -1,11 +1,10 @@
 import React from 'react';
 
-const Scroll = ({ retrieveData }) => {
-  const scrollText = retrieveData('films')
+const Scroll = ({data}) => {
+  console.log(data.results)
 
   return (
     <div className='scroll'>
-      <marquee>{scrollText}</marquee>
     </div>
   )
 }
