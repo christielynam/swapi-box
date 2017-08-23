@@ -121,9 +121,9 @@ class App extends Component {
         <div className="App">
           <Scroll data={data[0]} />
           <div className='button-container'>
-            <Button buttonText='people' className={'button'} num={1} changeCards={this.changeCards}/>
-            <Button buttonText='planets' className={'button'} num={2} changeCards={this.changeCards}/>
-            <Button buttonText='vehicles' className={'button'} num={3} changeCards={this.changeCards} />
+            <Button buttonText='people' className={'button main-btn'} num={1} changeCards={this.changeCards}/>
+            <Button buttonText='planets' className={'button main-btn'} num={2} changeCards={this.changeCards}/>
+            <Button buttonText='vehicles' className={'button main-btn'} num={3} changeCards={this.changeCards} />
           </div>
           <CardContainer cardType={data[i]} setFavorite={this.setFavorite} />
         </div>
