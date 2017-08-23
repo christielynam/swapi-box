@@ -12,6 +12,7 @@ class App extends Component {
     }
   }
 
+
   componentDidMount() {
     const films = fetch('https://swapi.co/api/films/').then(data => data.json())
     const people = fetch('https://swapi.co/api/people/').then(data => data.json())
@@ -19,21 +20,16 @@ class App extends Component {
     const vehicles = fetch('https://swapi.co/api/vehicles/').then(data => data.json())
 
     return Promise.all([films, people, planets, vehicles])
-    .then((data) => {
-      this.fetchHomeworld(data[1].results)
-      this.fetchSpecies(data[1].results)
-      this.fetchResidents(data[2].results)
-      this.cleanData(data)
-      this.setState({data: data})
-    }).catch((e) => {console.log(e)})
-  }
+      .then(data => {
+        const People = this.fetchHomeworld(data[1].results)
+          .then(data => this.fetchSpecies(data))
+        const Planets = this.fetchResidents(data[2].results)
 
-  cleanData(data) {
-    // console.log(data);
-    const mappedData = data[1].results.map(obj => {
-      Object.assign({}, {Name: obj.name, Homeworld: obj.Homeworld, Species: obj.Species, Population: obj.Population})})
-
-    // console.log(mappedData);
+      return Promise.all([films, People, Planets, vehicles])
+        .then(data => {
+          this.setState({data: this.cleanData(data)})
+        })
+      })
 
   }
 
@@ -44,8 +40,8 @@ class App extends Component {
     })
 
     return Promise.all(specificHomeworldData).then( homeworlds => {
-      homeworlds.map((homeworld, i) => {
-        Object.assign(data[i], {Homeworld: homeworld.name, Population: homeworld.population})
+      return homeworlds.map((homeworld, i) => {
+        return Object.assign(data[i], {Homeworld: homeworld.name, Population: homeworld.population})
       })
     })
   }
@@ -57,45 +53,60 @@ class App extends Component {
     })
 
     return Promise.all(specificSpeciesData).then( species => {
-      species.map((specie, i) => {
-        Object.assign(data[i], {Species: specie.name})
+      return species.map((specie, i) => {
+        return Object.assign(data[i], {Species: specie.name})
       })
     })
   }
 
   fetchResidents(data) {
-    console.log('data', data)
+
     const specificResidentsData = data.map( (planets, i) => {
-      const newArray = [];
 
       const specificResidents = planets.residents.map((link, i) => {
         return fetch(link)
         .then(res => res.json())
       })
+
       return Promise.all(specificResidents).then( people => {
-        people.map((person, i) => {
-          newArray.push(person.name)
-          Object.assign(planets, {Residents: newArray})
-        })
+        return Object.assign(planets, {Residents: people})
       })
     })
+
+    return Promise.all(specificResidentsData)
+  }
+
+  cleanData(data) {
+
+    const filmOpenings = data[0].results
+
+    const mappedPeople = data[1].map(obj => {
+      return Object.assign({}, {Name: obj.name, Homeworld: obj.Homeworld, Species: obj.Species, Population: obj.Population})
+    })
+
+    const mappedPlanets = data[2].map(obj => {
+      return Object.assign({}, {Name: obj.name, Terrain: obj.terrain, Population: obj.population, Climate: obj.climate, Residents: obj.Residents})
+    })
+
+    const vehicles = data[3].results
+
+    return [filmOpenings, mappedPeople, mappedPlanets, vehicles]
   }
 
   render() {
     const { data } = this.state
-    console.log(data);
 
     if(data) {
       return (
         <div className="App">
-          <Scroll data={data[0].results} />
+          <Scroll data={data[0]} />
           <div className='button-container'>
             <Button buttonText='people' className={'button'}
             />
             <Button buttonText='planets' className={'button'} />
             <Button buttonText='vehicles' className={'button'} />
           </div>
-          <CardContainer cardType={data[1].results} />
+          <CardContainer cardType={data[1]} />
         </div>
       )
     } else {
