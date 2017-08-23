@@ -9,6 +9,7 @@ class App extends Component {
     super();
     this.state = {
       data: null,
+      opening: Math.floor(Math.random() * (6 - 0 + 1)),
       i: 1,
       favorites: {}
     }
@@ -112,14 +113,12 @@ class App extends Component {
   }
 
   render() {
-
-    const { data, i } = this.state
+    const { data, i, opening} = this.state
 
     if(data) {
-      console.log(data);
       return (
         <div className="App">
-          <Scroll data={data[0]} />
+          <Scroll data={data[0]} opening={opening}/>
           <div className='button-container'>
             <Button buttonText='people' className={'button main-btn'} num={1} changeCards={this.changeCards}/>
             <Button buttonText='planets' className={'button main-btn'} num={2} changeCards={this.changeCards}/>

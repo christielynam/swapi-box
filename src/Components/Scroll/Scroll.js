@@ -2,12 +2,10 @@ import React from 'react';
 import './Scroll.css';
 import Button from '../Button/Button';
 
-const Scroll = ({data}) => {
-
-  const randomIndex = Math.floor(Math.random() * (6 - 0 + 1))
-  const text = data[randomIndex].Opening
-  const filmTitle = data[randomIndex].Title
-  const releaseDate = data[randomIndex].Release
+const Scroll = ({data, opening}) => {
+  const text = data[opening].Opening
+  const filmTitle = data[opening].Title
+  const releaseDate = data[opening].Release
 
   return (
     <div>
