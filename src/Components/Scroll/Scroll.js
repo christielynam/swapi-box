@@ -8,7 +8,6 @@ const Scroll = ({data}) => {
   const filmTitle = data[randomIndex].title
   const releaseDate = data[randomIndex].release_date
 
-
   return (
     <div>
       <div className='crawl-container'>

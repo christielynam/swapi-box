@@ -102,10 +102,10 @@ console.log(data);
         <div className="App">
           <Scroll data={data[0]} />
           <div className='button-container'>
-            <Button buttonText='people' className={'button'}
+            <Button buttonText='people' className={'button main-btn'}
             />
-            <Button buttonText='planets' className={'button'} />
-            <Button buttonText='vehicles' className={'button'} />
+            <Button buttonText='planets' className={'button main-btn'} />
+            <Button buttonText='vehicles' className={'button main-btn'} />
           </div>
           <CardContainer cardType={data[1]} />
         </div>
