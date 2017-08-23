@@ -6,9 +6,6 @@ const Scroll = ({data}) => {
   const randomIndex = Math.floor(Math.random() * (6 - 0 + 1))
   const text = data[randomIndex].Opening
 
-  const favoriteStyles = {
-    marginRight: 50
-  }
   return (
     <div>
       <div className='crawl-container'>
