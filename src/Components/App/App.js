@@ -112,9 +112,11 @@ class App extends Component {
   }
 
   render() {
+
     const { data, i } = this.state
 
     if(data) {
+      console.log(data);
       return (
         <div className="App">
           <Scroll data={data[0]} />
@@ -129,7 +131,7 @@ class App extends Component {
     } else {
       return (
         <div>
-          Loading
+          <h2 className='loading'>Loading...</h2>
         </div>
       )
     }

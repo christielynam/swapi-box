@@ -1,8 +1,6 @@
 body {
   height: 100%;
   width: 100%;
-  overflow-y: scroll;
-  /*overflow: hidden;*/
   background: #000;
 }
 
@@ -26,6 +24,7 @@ body {
   margin-left: 50px;
   color: #fff;
   font-size: 75px;
+  font-weight: 900;
 }
 
 .star-wars {
@@ -37,15 +36,15 @@ body {
   letter-spacing: 6px;
   line-height: 150%;
   text-align: justify;
-  perspective: 200px;
+  perspective: 400px;
 }
 
 .crawl {
-  width: 50%;
+  width: 75%;
   position: relative;
   top: -100px;
   transform-origin: 50% 100%;
-  animation: crawl 15s infinite linear;
+  animation: crawl 30s infinite linear;
 }
 
 @keyframes crawl {
@@ -57,4 +56,10 @@ body {
     top: -1500px;
     transform: rotateX(25deg) translateZ(-2500deg);;
   }
+}
+
+.crawl-text,
+.film-title,
+.release-date {
+  text-align: center;
 }
