@@ -12,33 +12,6 @@ class App extends Component {
     }
   }
 
-  // componentDidMount() {
-  //   const films = fetch('https://swapi.co/api/films/').then(data => data.json())
-  //   const people = fetch('https://swapi.co/api/people/').then(data => data.json())
-  //   const planets = fetch('https://swapi.co/api/planets/').then(data => data.json())
-  //   const vehicles = fetch('https://swapi.co/api/vehicles/').then(data => data.json())
-  //
-  //   let cleanedPeopleData = [];
-  //
-  //   return Promise.all([films, people, planets, vehicles])
-  //   .then(data => {
-  //
-  //     this.fetchHomeworld(data[1].results)
-  //           .then(data => this.fetchSpecies(data)
-  //             .then(data => {
-  //               cleanedPeopleData = this.cleanData(data);
-  //             })
-  //               .then(data =>
-  //                 this.setState({
-  //                   data: cleanedPeopleData
-  //                 })
-  //               )
-  //             )
-  //
-  //     this.fetchResidents(data[2].results)
-  //   })
-  //   .catch(e => {console.log(e)})
-  // }
 
   componentDidMount() {
     const films = fetch('https://swapi.co/api/films/').then(data => data.json())
@@ -46,13 +19,10 @@ class App extends Component {
     const planets = fetch('https://swapi.co/api/planets/').then(data => data.json())
     const vehicles = fetch('https://swapi.co/api/vehicles/').then(data => data.json())
 
-    let cleanedPeopleData = [];
-
     return Promise.all([films, people, planets, vehicles])
       .then(data => {
         const People = this.fetchHomeworld(data[1].results)
           .then(data => this.fetchSpecies(data))
-        console.log(this.fetchResidents(data[2].results));
         const Planets = this.fetchResidents(data[2].results)
 
       return Promise.all([films, People, Planets, vehicles])
@@ -90,6 +60,7 @@ class App extends Component {
   }
 
   fetchResidents(data) {
+
     const specificResidentsData = data.map( (planets, i) => {
 
       const specificResidents = planets.residents.map((link, i) => {
@@ -124,17 +95,18 @@ class App extends Component {
 
   render() {
     const { data } = this.state
-    // <Scroll data={data[0].results}/>
-    console.log('IN RENDER:', data);
+
     if(data) {
       return (
         <div className="App">
-
-        <Button buttonText='people' />
-        <Button buttonText='planets' />
-        <Button buttonText='vehicles' />
-        <Button buttonText='View Favorites' />
-        <CardContainer cardType={data[1]} />
+          <Scroll data={data[0]} />
+          <div className='button-container'>
+            <Button buttonText='people' className={'button'}
+            />
+            <Button buttonText='planets' className={'button'} />
+            <Button buttonText='vehicles' className={'button'} />
+          </div>
+          <CardContainer cardType={data[1]} />
         </div>
       )
     } else {
