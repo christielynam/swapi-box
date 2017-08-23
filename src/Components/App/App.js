@@ -29,11 +29,11 @@ class App extends Component {
   }
 
   cleanData(data) {
-    console.log(data);
+    // console.log(data);
     const mappedData = data[1].results.map(obj => {
-      Object.assign({}, {Name: obj.name}, {Homeworld: obj.Homeworld}, {Species: obj.Species}, {Population: obj.Population})})
+      Object.assign({}, {Name: obj.name, Homeworld: obj.Homeworld, Species: obj.Species, Population: obj.Population})})
 
-    console.log(mappedData);
+    // console.log(mappedData);
 
   }
 
@@ -64,7 +64,7 @@ class App extends Component {
   }
 
   fetchResidents(data) {
-    // console.log(data)
+    console.log('data', data)
     const specificResidentsData = data.map( (planets, i) => {
       const newArray = [];
 
@@ -83,16 +83,19 @@ class App extends Component {
 
   render() {
     const { data } = this.state
+    console.log(data);
 
     if(data) {
       return (
         <div className="App">
-        <Scroll data={data[0].results}/>
-        <Button buttonText='people' />
-        <Button buttonText='planets' />
-        <Button buttonText='vehicles' />
-        <Button buttonText='View Favorites' />
-        <CardContainer cardType={data[1].results} />
+          <Scroll data={data[0].results} />
+          <div className='button-container'>
+            <Button buttonText='people' className={'button'}
+            />
+            <Button buttonText='planets' className={'button'} />
+            <Button buttonText='vehicles' className={'button'} />
+          </div>
+          <CardContainer cardType={data[1].results} />
         </div>
       )
     } else {
