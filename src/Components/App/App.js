@@ -108,22 +108,27 @@ class App extends Component {
     this.setState({i: num, favClicked: false})
   }
 
+  findIndexInFavArray(element) {
+    return this === element.Name;
+  }
+
   setFavorite(cardData) {
     const { favorites } = this.state;
 
-    if (favorites.length > 1) {
-      favorites.map((favorite, i) => {
-        const ourFavorites = Object.keys(favorite)
-        const newFavorite = Object.keys(cardData)
-        if (favorite[ourFavorites[0]].includes(cardData[newFavorite[0]])) {
-          favorites.splice(i, 1)
-        } else {
-          favorites.push(cardData)
-        }
-      })
+    const indexOfFavorite = favorites.findIndex(this.findIndexInFavArray, cardData.Name);
+
+    let oldFavorites;
+
+    if (indexOfFavorite < 0) {
+      oldFavorites = [...favorites, cardData];
     } else {
-      favorites.push(cardData)
+      oldFavorites = favorites.slice();
+      oldFavorites.splice(indexOfFavorite, 1)
     }
+
+    this.setState({
+      favorites: oldFavorites
+    })
   }
 
   toggleActive(button) {
@@ -147,12 +152,12 @@ class App extends Component {
   }
 
   render() {
-    const { data, i, opening} = this.state
+    const { data, i, opening, favorites } = this.state
 
     if(data) {
       return (
         <div className="App">
-          <Scroll data={data[0]} toggleActive={this.toggleActive} opening={opening} btnFn={this.favClicked}/>
+          <Scroll data={data[0]} toggleActive={this.toggleActive} opening={opening} btnFn={this.favClicked} numFav={favorites.length} />
           <div className='button-container'>
             <Button buttonText='people' className={'button main-btn active'} toggleActive={this.toggleActive} num={1} btnFn={this.changeCards}/>
             <Button buttonText='planets' className={'button main-btn'} toggleActive={this.toggleActive} num={2} btnFn={this.changeCards}/>
