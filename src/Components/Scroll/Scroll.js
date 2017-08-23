@@ -5,10 +5,10 @@ import Button from '../Button/Button';
 const Scroll = ({data}) => {
   const randomIndex = Math.floor(Math.random() * (7 - 0 + 1))
   const text = data[randomIndex].opening_crawl
+  const filmTitle = data[randomIndex].title
+  const releaseDate = data[randomIndex].release_date
 
-  const favoriteStyles = {
-    marginRight: 50
-  }
+
   return (
     <div>
       <div className='crawl-container'>
@@ -19,6 +19,8 @@ const Scroll = ({data}) => {
         <div className='star-wars'>
           <div className='crawl'>
             <p className='crawl-text'>{text}</p>
+            <p className='film-title'>{filmTitle}</p>
+            <p className='release-date'>{releaseDate}</p>
           </div>
         </div>
       </div>
