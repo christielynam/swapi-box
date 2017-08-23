@@ -5,9 +5,9 @@ import Button from '../Button/Button';
 const Scroll = ({data}) => {
 
   const randomIndex = Math.floor(Math.random() * (6 - 0 + 1))
-  const text = data[randomIndex].opening_crawl
-  const filmTitle = data[randomIndex].title
-  const releaseDate = data[randomIndex].release_date
+  const text = data[randomIndex].Opening
+  const filmTitle = data[randomIndex].Title
+  const releaseDate = data[randomIndex].Release
 
   return (
     <div>
