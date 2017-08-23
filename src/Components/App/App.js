@@ -11,10 +11,12 @@ class App extends Component {
       data: null,
       opening: Math.floor(Math.random() * (6 - 0 + 1)),
       i: 1,
-      favorites: {}
+      favClicked: false,
+      favorites: []
     }
     this.changeCards = this.changeCards.bind(this);
     this.setFavorite = this.setFavorite.bind(this);
+    this.favClicked = this.favClicked.bind(this);
   }
 
 
@@ -102,14 +104,41 @@ class App extends Component {
   }
 
   changeCards(num) {
-    this.setState({i: num})
+    this.setState({i: num, favClicked: false})
   }
 
   setFavorite(cardData) {
-    console.log(cardData)
     const { favorites } = this.state;
 
-    favorites.push(cardData)
+    if (favorites.length > 1) {
+      favorites.map((favorite, i) => {
+        const ourFavorites = Object.keys(favorite)
+        const newFavorite = Object.keys(cardData)
+        if (favorite[ourFavorites[0]].includes(cardData[newFavorite[0]])) {
+          favorites.splice(i, 1)
+        } else {
+          favorites.push(cardData)
+        }
+      })
+    } else {
+      favorites.push(cardData)
+    }
+
+
+  }
+
+  favClicked() {
+    this.setState({ favClicked: true})
+  }
+
+  cardSet() {
+    const {favClicked, favorites, data, i} = this.state;
+
+    if (favClicked) {
+      return favorites
+    } else {
+      return data[i]
+    }
   }
 
   render() {
@@ -118,13 +147,13 @@ class App extends Component {
     if(data) {
       return (
         <div className="App">
-          <Scroll data={data[0]} opening={opening}/>
+          <Scroll data={data[0]} opening={opening} btnFn={this.favClicked}/>
           <div className='button-container'>
-            <Button buttonText='people' className={'button main-btn'} num={1} changeCards={this.changeCards}/>
-            <Button buttonText='planets' className={'button main-btn'} num={2} changeCards={this.changeCards}/>
-            <Button buttonText='vehicles' className={'button main-btn'} num={3} changeCards={this.changeCards} />
+            <Button buttonText='people' className={'button main-btn'} num={1} btnFn={this.changeCards}/>
+            <Button buttonText='planets' className={'button main-btn'} num={2} btnFn={this.changeCards}/>
+            <Button buttonText='vehicles' className={'button main-btn'} num={3} btnFn={this.changeCards} />
           </div>
-          <CardContainer cardType={data[i]} setFavorite={this.setFavorite} />
+          <CardContainer cardType={this.cardSet()} setFavorite={this.setFavorite} />
         </div>
       )
     } else {
