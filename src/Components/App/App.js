@@ -44,7 +44,6 @@ class App extends Component {
   }
 
   fetchHomeworld(data) {
-    console.log(data)
     const specificHomeworldData = data.map((world, i) => {
       return fetch(world.homeworld)
       .then(res => res.json())
@@ -173,7 +172,7 @@ class App extends Component {
         <div>
           <h2 className='loading'>Loading...</h2>
           <div className='gif-container'>
-            <img className='gif' src={ GIF } />
+            <img className='gif' src={ GIF } alt='loading robot' />
           </div>
         </div>
       )

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Card from '../Card/Card';
 import PropTypes from 'prop-types'
 import './CardContainer.css';
@@ -20,6 +21,11 @@ const CardContainer = ({ cardType, setFavorite }) => {
       <h2 className='select-favs'>Please select favorites...</h2>
     )
   }
+}
+
+CardContainer.propTypes = {
+  cardType: PropTypes.array.isRequired,
+  setFavorite: PropTypes.func,
 }
 
 export default CardContainer;

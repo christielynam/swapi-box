@@ -33,4 +33,18 @@ describe('Scroll', () => {
     expect(wrapper.find('Button').props().btnFn).toEqual(mockFn)
   })
 
+  it('should render a film summary, film title and release date', () => {
+    wrapper = mount(<Scroll data={ScrollMock} toggleActive={mockFn} btnFn={mockFn} numFav={2} opening={3}/>)
+
+    const crawlText = wrapper.find('.crawl-text')
+    const filmTitle = wrapper.find('.film-title')
+    const releaseDate = wrapper.find('.release-date')
+
+    expect(crawlText.length).toEqual(1)
+
+    expect(filmTitle.length).toEqual(1)
+
+    expect(releaseDate.length).toEqual(1)
+  })
+
 })
