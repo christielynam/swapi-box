@@ -19,6 +19,7 @@ class App extends Component {
     this.setFavorite = this.setFavorite.bind(this);
     this.favClicked = this.favClicked.bind(this);
     this.toggleActive = this.toggleActive.bind(this);
+    this.toggleFavorite = this.toggleFavorite.bind(this);
   }
 
 
@@ -138,8 +139,14 @@ class App extends Component {
     button.classList.toggle('active')
   }
 
+  toggleFavorite(button) {
+    button.classList.toggle('favorite-active')
+  }
+
   favClicked() {
-    this.setState({ favClicked: true})
+    this.setState({
+      favClicked: true
+    })
   }
 
   cardSet() {
@@ -158,13 +165,27 @@ class App extends Component {
     if(data) {
       return (
         <div className="App">
-          <Scroll data={data[0]} toggleActive={this.toggleActive} opening={opening} btnFn={this.favClicked} numFav={favorites.length} />
+          <Scroll data={data[0]}
+            toggleActive={this.toggleActive}
+            opening={opening}
+            btnFn={this.favClicked}
+            numFav={favorites.length} />
           <div className='button-container'>
-            <Button buttonText='people' className={'button main-btn active'} toggleActive={this.toggleActive} num={1} btnFn={this.changeCards} />
-            <Button buttonText='planets' className={'button main-btn'} toggleActive={this.toggleActive} num={2} btnFn={this.changeCards} />
-            <Button buttonText='vehicles' className={'button main-btn'} toggleActive={this.toggleActive} num={3} btnFn={this.changeCards} />
+            <Button buttonText='people'
+              className={'button main-btn active'} toggleActive={this.toggleActive}
+              num={1}
+              btnFn={this.changeCards} />
+            <Button buttonText='planets'
+              className={'button main-btn'} toggleActive={this.toggleActive}
+              num={2}
+              btnFn={this.changeCards} />
+            <Button buttonText='vehicles'
+              className={'button main-btn'} toggleActive={this.toggleActive}
+              num={3}
+              btnFn={this.changeCards} />
           </div>
-          <CardContainer cardType={this.cardSet()} setFavorite={this.setFavorite} />
+          <CardContainer cardType={this.cardSet()}
+            toggleFavorite={this.toggleFavorite} setFavorite={this.setFavorite} />
         </div>
       )
     } else {

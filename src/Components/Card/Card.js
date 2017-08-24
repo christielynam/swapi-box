@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './Card.css';
 
-const Card = ({ cardData, setFavorite, toggleActive }) => {
+const Card = ({ cardData, setFavorite, toggleFavorite }) => {
   const cardKeys = Object.keys(cardData)
   const cards = cardKeys.map((prop, i) => {
     const card = cardData[propReturn(prop)]
@@ -26,7 +26,8 @@ const Card = ({ cardData, setFavorite, toggleActive }) => {
 
   return (
     <article className='card'>
-      <button className='favorite-btn' onClick={() => setFavorite(cardData)}>Favorite</button>
+      <button className='favorite-btn'
+        onClick={(e) => (setFavorite(cardData), toggleFavorite(e.currentTarget))}>Favorite</button>
       { cards }
     </article>
   )
