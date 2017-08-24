@@ -162,6 +162,10 @@ class App extends Component {
     }
   }
 
+  // updateLocalStorage() {
+  //   let strigifiedFavorites =
+  // }
+
   render() {
     const { data, opening, favorites } = this.state
 
