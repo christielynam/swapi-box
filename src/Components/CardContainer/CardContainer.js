@@ -16,7 +16,7 @@ const CardContainer = ({ cardType, setFavorite }) => {
       {cards}
     </div>
   )
-
+  
   } else {
     return (
       <h2 className='select-favs'>There are currently no favorites...</h2>

@@ -178,10 +178,6 @@ class App extends Component {
     }
   }
 
-  // updateLocalStorage() {
-  //   let strigifiedFavorites =
-  // }
-
   render() {
     const { data, errorStatus, opening, favorites } = this.state
 
