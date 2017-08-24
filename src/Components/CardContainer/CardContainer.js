@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Card from '../Card/Card';
+import PropTypes from 'prop-types'
 import './CardContainer.css';
 
 const CardContainer = ({ cardType, setFavorite }) => {
@@ -28,3 +29,8 @@ CardContainer.propTypes = {
 }
 
 export default CardContainer;
+
+CardContainer.propTypes = {
+  cardType: PropTypes.array.isRequired,
+  setFavorite: PropTypes.func,
+}

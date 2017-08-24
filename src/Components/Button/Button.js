@@ -19,3 +19,11 @@ Button.propTypes = {
 }
 
 export default Button;
+
+Button.propTypes = {
+  buttonText: PropTypes.string,
+  className: PropTypes.string,
+  num: PropTypes.number,
+  btnFn: PropTypes.func,
+  toggleActive: PropTypes.func
+}
