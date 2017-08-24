@@ -36,16 +36,15 @@ describe('Scroll', () => {
   it('should render a film summary, film title and release date', () => {
     wrapper = mount(<Scroll data={ScrollMock} toggleActive={mockFn} btnFn={mockFn} numFav={2} opening={3}/>)
 
-    const filmSummary = wrapper.find('.crawl-text')
-
+    const crawlText = wrapper.find('.crawl-text')
     const filmTitle = wrapper.find('.film-title')
-
     const releaseDate = wrapper.find('.release-date')
 
-    console.log(wrapper.debug);
+    expect(crawlText.length).toEqual(1)
 
-    expect(filmSummary.text()).toEqual('SWAPI-BOX')
-    // expect(wrapper.find('Button').length).toEqual(1)
+    expect(filmTitle.length).toEqual(1)
+
+    expect(releaseDate.length).toEqual(1)
   })
 
 })
