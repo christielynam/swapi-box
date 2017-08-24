@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { mount, shallow } from 'enzyme';
 import Button from './Button';
-// import ButtonMock from './ButtonMock';
 
 describe('Button', () => {
   let wrapper;
@@ -17,10 +16,8 @@ describe('Button', () => {
   })
 
   it('should pass through all the correct props', () => {
-    console.log(wrapper.props);
     expect(wrapper.props()).toHaveProperty('children', 'people')
     expect(wrapper.props()).toHaveProperty('className', 'button')
     expect(wrapper.props()).toHaveProperty('onClick')
   })
-
 })
