@@ -10,6 +10,7 @@ class App extends Component {
     super();
     this.state = {
       data: null,
+      errorStatus: '',
       opening: Math.floor(Math.random() * (6 - 0 + 1)),
       i: 1,
       favClicked: false,
@@ -23,29 +24,56 @@ class App extends Component {
 
 
   componentDidMount() {
-    const films = fetch('https://swapi.co/api/films/').then(data => data.json())
-    const people = fetch('https://swapi.co/api/people/').then(data => data.json())
-    const planets = fetch('https://swapi.co/api/planets/').then(data => data.json())
-    const vehicles = fetch('https://swapi.co/api/vehicles/').then(data => data.json())
+    const films = fetch('https://swapi.co/api/films/').then(data => (this.handleErrors(data.status), data.json()))
+    const people = fetch('https://swapi.co/api/people/').then(data => (this.handleErrors(data.status), data.json()))
+    const planets = fetch('https://swapi.co/api/planets/').then(data => (this.handleErrors(data.status), data.json()))
+    const vehicles = fetch('https://swapi.co/api/vehicles/').then(data => (this.handleErrors(data.status), data.json()))
 
     return Promise.all([films, people, planets, vehicles])
       .then(data => {
+        const error = data[0].detail === undefined || data[0].detail.includes('Request was throttled.');
+
+        if(error) {
+          this.setState({errorStatus: 'You done fucked up!!!'})
+          return
+        }
+
         const People = this.fetchHomeworld(data[1].results)
           .then(data => this.fetchSpecies(data))
         const Planets = this.fetchResidents(data[2].results)
 
-      return Promise.all([films, People, Planets, vehicles])
-        .then(data => {
-          this.setState({data: this.cleanData(data)})
-        })
+        return Promise.all([films, People, Planets, vehicles])
+          .then(data => {
+            this.setState({data: this.cleanData(data)})
       })
+    })
+  }
 
+  handleErrors(status) {
+    if (status === 400) {
+      this.setState({ errorStatus: 'Bad Request.'})
+    } else if (status === 401) {
+      this.setState({ errorStatus: 'Login unauthorized.'})
+    } else if (status === 403) {
+      this.setState({ errorStatus: 'Access to this site is forbidden.'})
+    } else if (status === 404) {
+      this.setState({ errorStatus: 'The site you are looking for was not found.'})
+    } else if (status === 408) {
+      this.setState({ errorStatus: 'Request Time-out...'})
+    } else if (status === 410) {
+      this.setState({ errorStatus: 'The site is no longer available.'})
+    } else if (status === 429) {
+      this.setState({ errorStatus: 'You done fucked up!!!'})
+    } else if (status >= 500) {
+      this.setState({ errorStatus: "Server error... Please try again later!"})
+    }
   }
 
   fetchHomeworld(data) {
+    if(data === undefined) {return}
     const specificHomeworldData = data.map((world, i) => {
       return fetch(world.homeworld)
-      .then(res => res.json())
+      .then(res => (this.handleErrors(res.status), res.json()))
     })
 
     return Promise.all(specificHomeworldData).then( homeworlds => {
@@ -58,7 +86,7 @@ class App extends Component {
   fetchSpecies(data) {
     const specificSpeciesData = data.map((species, i) => {
       return fetch(species.species)
-      .then(res => res.json())
+      .then(res => (this.handleErrors(res.status), res.json()))
     })
 
     return Promise.all(specificSpeciesData).then( species => {
@@ -69,11 +97,12 @@ class App extends Component {
   }
 
   fetchResidents(data) {
+    if(data === undefined) {return}
     const specificResidentsData = data.map( (planets, i) => {
 
       const specificResidents = planets.residents.map((link, i) => {
         return fetch(link)
-        .then(res => res.json())
+        .then(res => (this.handleErrors(res.status), res.json()))
       })
 
       return Promise.all(specificResidents).then( people => {
@@ -158,7 +187,7 @@ class App extends Component {
   // }
 
   render() {
-    const { data, opening, favorites } = this.state
+    const { data, errorStatus, opening, favorites } = this.state
 
     if(data) {
       return (
@@ -167,7 +196,8 @@ class App extends Component {
             toggleActive={this.toggleActive}
             opening={opening}
             btnFn={this.favClicked}
-            numFav={favorites.length} />
+            numFav={favorites.length}
+            errorStatus={errorStatus}/>
           <div className='button-container'>
             <Button buttonText='people'
               className={'button main-btn active'} toggleActive={this.toggleActive}
@@ -193,6 +223,7 @@ class App extends Component {
           <div className='gif-container'>
             <img className='gif' src={ GIF } alt='loading robot' />
           </div>
+          <h2 className='error'>{errorStatus}</h2>
         </div>
       )
     }

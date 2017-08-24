@@ -12,9 +12,20 @@ body {
   text-align: center;
 }
 
+.error {
+  color: #fff;
+  font-size: 50px;
+  text-align: center;
+}
+
 .button-container {
   display: flex;
   justify-content: space-around;
+}
+
+.gif {
+  height: 400px;
+  width: 500px;
 }
 
 .gif-container {
