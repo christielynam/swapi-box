@@ -23,8 +23,7 @@ describe('CardContainer', () => {
 
   it.skip('should render a message to the page if the user clicks the view favorites button and there are no favorited cards', () => {
 
-    //simulate click of View Favorites button
-    let wrapper = []
+    wrapper = shallow(<CardContainer cardType={[]} setFavorite={mockFn} />)
 
     const message = wrapper.find('.select-favs')
 

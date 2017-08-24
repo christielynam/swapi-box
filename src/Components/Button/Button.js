@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import './Button.css';
 
 const Button = ({ buttonText, className, num, btnFn, toggleActive }) => {
-  console.log(className);
 
   return (
     <button className={`${className}`} onClick={(e) => (btnFn(num), toggleActive(e.currentTarget))}>{buttonText}</button>
@@ -19,11 +18,3 @@ Button.propTypes = {
 }
 
 export default Button;
-
-Button.propTypes = {
-  buttonText: PropTypes.string,
-  className: PropTypes.string,
-  num: PropTypes.number,
-  btnFn: PropTypes.func,
-  toggleActive: PropTypes.func
-}
