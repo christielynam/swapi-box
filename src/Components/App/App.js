@@ -31,11 +31,10 @@ class App extends Component {
 
     return Promise.all([films, people, planets, vehicles])
       .then(data => {
-        const error = data[0].detail === undefined || data[0].detail.includes('Request was throttled.');
+        const error = data || data[0].detail.includes('Request was throttled.');
 
         if(error) {
-          this.setState({errorStatus: 'Request was throttled.'})
-          return
+          this.setState({errorStatus: 'Request was throttled. Not all data was loaded.'})
         }
 
         const People = this.fetchHomeworld(data[1].results)
@@ -63,7 +62,7 @@ class App extends Component {
     } else if (status === 410) {
       this.setState({ errorStatus: 'The site is no longer available.'})
     } else if (status === 429) {
-      this.setState({ errorStatus: 'Request was throttled.'})
+      this.setState({ errorStatus: 'Request was throttled.  Not all data was loaded.'})
     } else if (status >= 500) {
       this.setState({ errorStatus: "Server error... Please try again later!"})
     }
@@ -198,6 +197,7 @@ class App extends Component {
             btnFn={this.favClicked}
             numFav={favorites.length}
             errorStatus={errorStatus}/>
+          <h2 className='error'>{errorStatus}</h2>
           <div className='button-container'>
             <Button buttonText='people'
               className={'button main-btn active'} toggleActive={this.toggleActive}
