@@ -27,7 +27,7 @@ const Card = ({ cardData, setFavorite, toggleFavorite }) => {
   return (
     <article className='card'>
       <button className='favorite-btn'
-        onClick={(e) => (setFavorite(cardData), toggleFavorite(e.currentTarget))}>Favorite</button>
+        onClick={(e) => (setFavorite(cardData), toggleFavorite(e.target))}>Favorite</button>
       { cards }
     </article>
   )

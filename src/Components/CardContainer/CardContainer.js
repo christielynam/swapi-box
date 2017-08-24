@@ -20,7 +20,7 @@ const CardContainer = ({ cardType, setFavorite, toggleFavorite }) => {
 
   } else {
     return (
-      <h2 className='select-favs'>Please select favorites...</h2>
+      <h2 className='select-favs'>There are currently no favorites...</h2>
     )
   }
 }
