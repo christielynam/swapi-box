@@ -35,9 +35,3 @@ Card.propTypes = {
 }
 
 export default Card;
-
-Card.propTypes = {
-  cardData: PropTypes.object.isRequired,
-  setFavorite: PropTypes.func,
-  toggleActive: PropTypes.func
-}
