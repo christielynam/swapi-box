@@ -37,11 +37,3 @@ Scroll.propTypes = {
 }
 
 export default Scroll;
-
-Scroll.propTypes = {
-  data: PropTypes.array.isRequired,
-  opening: PropTypes.number.isRequired,
-  btnFn: PropTypes.func,
-  toggleActive: PropTypes.func,
-  numFav: PropTypes.number
-}
