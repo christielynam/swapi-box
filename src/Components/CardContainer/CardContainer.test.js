@@ -21,9 +21,8 @@ describe('CardContainer', () => {
     expect(wrapper.find('Card').length).toEqual(10)
   })
 
-  it.skip('should render a message to the page if the user clicks the view favorites button and there are no favorited cards', () => {
-
-    wrapper = shallow(<CardContainer cardType={[]} setFavorite={mockFn} />)
+  it('should render a message to the page if there are no favorited cards', () => {
+    wrapper = mount(<CardContainer cardType={[]} setFavorite={mockFn} />)
 
     const message = wrapper.find('.select-favs')
 
@@ -32,5 +31,10 @@ describe('CardContainer', () => {
     expect(message.text()).toEqual('There are currently no favorites...')
   })
 
+  it('should pass through all the correct props', () => {
+    wrapper = mount(<CardContainer cardType={CardContainerMock} setFavorite={mockFn} />)
 
+    expect(wrapper.node.props.cardType).toEqual(CardContainerMock);
+    expect(wrapper.node.props.setFavorite).toEqual(mockFn);
+  })
 })
