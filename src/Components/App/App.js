@@ -31,7 +31,6 @@ class App extends Component {
 
     return Promise.all([films, people, planets, vehicles])
       .then(data => {
-        console.log(data)
         const People = this.fetchHomeworld(data[1].results)
           .then(data => this.fetchSpecies(data))
         const Planets = this.fetchResidents(data[2].results)
@@ -140,7 +139,11 @@ class App extends Component {
   }
 
   toggleFavorite(button) {
+    const { data } = this.state
     button.classList.toggle('favorite-active')
+    this.setState({
+      data: data
+    })
   }
 
   favClicked() {
