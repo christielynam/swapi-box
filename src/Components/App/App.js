@@ -19,6 +19,7 @@ class App extends Component {
     this.setFavorite = this.setFavorite.bind(this);
     this.favClicked = this.favClicked.bind(this);
     this.toggleActive = this.toggleActive.bind(this);
+    this.toggleFavorite = this.toggleFavorite.bind(this);
   }
 
 
@@ -30,7 +31,6 @@ class App extends Component {
 
     return Promise.all([films, people, planets, vehicles])
       .then(data => {
-        console.log(data)
         const People = this.fetchHomeworld(data[1].results)
           .then(data => this.fetchSpecies(data))
         const Planets = this.fetchResidents(data[2].results)
@@ -138,8 +138,18 @@ class App extends Component {
     button.classList.toggle('active')
   }
 
+  toggleFavorite(button) {
+    const { data } = this.state
+    button.classList.toggle('favorite-active')
+    this.setState({
+      data: data
+    })
+  }
+
   favClicked() {
-    this.setState({ favClicked: true})
+    this.setState({
+      favClicked: true
+    })
   }
 
   cardSet() {
@@ -152,19 +162,37 @@ class App extends Component {
     }
   }
 
+  // updateLocalStorage() {
+  //   let strigifiedFavorites =
+  // }
+
   render() {
     const { data, opening, favorites } = this.state
 
     if(data) {
       return (
         <div className="App">
-          <Scroll data={data[0]} toggleActive={this.toggleActive} opening={opening} btnFn={this.favClicked} numFav={favorites.length} />
+          <Scroll data={data[0]}
+            toggleActive={this.toggleActive}
+            opening={opening}
+            btnFn={this.favClicked}
+            numFav={favorites.length} />
           <div className='button-container'>
-            <Button buttonText='people' className={'button main-btn active'} toggleActive={this.toggleActive} num={1} btnFn={this.changeCards} />
-            <Button buttonText='planets' className={'button main-btn'} toggleActive={this.toggleActive} num={2} btnFn={this.changeCards} />
-            <Button buttonText='vehicles' className={'button main-btn'} toggleActive={this.toggleActive} num={3} btnFn={this.changeCards} />
+            <Button buttonText='people'
+              className={'button main-btn active'} toggleActive={this.toggleActive}
+              num={1}
+              btnFn={this.changeCards} />
+            <Button buttonText='planets'
+              className={'button main-btn'} toggleActive={this.toggleActive}
+              num={2}
+              btnFn={this.changeCards} />
+            <Button buttonText='vehicles'
+              className={'button main-btn'} toggleActive={this.toggleActive}
+              num={3}
+              btnFn={this.changeCards} />
           </div>
-          <CardContainer cardType={this.cardSet()} setFavorite={this.setFavorite} />
+          <CardContainer cardType={this.cardSet()}
+            toggleFavorite={this.toggleFavorite} setFavorite={this.setFavorite} />
         </div>
       )
     } else {

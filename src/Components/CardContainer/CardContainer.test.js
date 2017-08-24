@@ -29,7 +29,7 @@ describe('CardContainer', () => {
 
     expect(wrapper.find('Card').length).toEqual(0)
 
-    expect(message.text()).toEqual('Please select favorites...')
+    expect(message.text()).toEqual('There are currently no favorites...')
   })
 
 
