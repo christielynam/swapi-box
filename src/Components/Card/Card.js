@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './Card.css';
 
-const Card = ({ cardData, setFavorite, toggleActive, toggleFavorite }) => {
+const Card = ({ cardData, setFavorite, toggleActive }) => {
   const cardKeys = Object.keys(cardData)
   const cards = cardKeys.map((prop, i) => {
     const card = cardData[prop]
@@ -20,6 +20,11 @@ const Card = ({ cardData, setFavorite, toggleActive, toggleFavorite }) => {
      return Residents.map(resident => resident.name + ' ')
   }
 
+  function toggleFavorite(button) {
+    button.classList.toggle('favorite-active')
+  }
+
+
   return (
     <article className='card'>
       <button className='favorite-btn' onClick={(e) => (setFavorite(cardData), toggleFavorite(e.currentTarget))}>Favorite</button>
@@ -35,9 +40,3 @@ Card.propTypes = {
 }
 
 export default Card;
-
-Card.propTypes = {
-  cardData: PropTypes.object.isRequired,
-  setFavorite: PropTypes.func,
-  toggleActive: PropTypes.func
-}

@@ -3,12 +3,11 @@ import Card from '../Card/Card';
 import PropTypes from 'prop-types';
 import './CardContainer.css';
 
-const CardContainer = ({ cardType, setFavorite, toggleFavorite }) => {
+const CardContainer = ({ cardType, setFavorite }) => {
   if(cardType.length > 0) {
     const cards = cardType.map((card, index) =>
     <Card cardData={card}
       key={index}
-      toggleFavorite={toggleFavorite}
       setFavorite={setFavorite} />
   )
 
