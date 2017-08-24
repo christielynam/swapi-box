@@ -43,6 +43,7 @@ class App extends Component {
   }
 
   fetchHomeworld(data) {
+    console.log(data)
     const specificHomeworldData = data.map((world, i) => {
       return fetch(world.homeworld)
       .then(res => res.json())
