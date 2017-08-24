@@ -34,7 +34,7 @@ class App extends Component {
         const error = data[0].detail === undefined || data[0].detail.includes('Request was throttled.');
 
         if(error) {
-          this.setState({errorStatus: 'You done fucked up!!!'})
+          this.setState({errorStatus: 'Request was throttled.'})
           return
         }
 
@@ -63,7 +63,7 @@ class App extends Component {
     } else if (status === 410) {
       this.setState({ errorStatus: 'The site is no longer available.'})
     } else if (status === 429) {
-      this.setState({ errorStatus: 'You done fucked up!!!'})
+      this.setState({ errorStatus: 'Request was throttled.'})
     } else if (status >= 500) {
       this.setState({ errorStatus: "Server error... Please try again later!"})
     }
