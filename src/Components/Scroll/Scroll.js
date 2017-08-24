@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import './Scroll.css';
 import Button from '../Button/Button';
 
@@ -24,6 +26,14 @@ const Scroll = ({ data, opening, btnFn, toggleActive, numFav }) => {
       </div>
     </div>
   )
+}
+
+Scroll.propTypes = {
+  data: PropTypes.array.isRequired,
+  opening: PropTypes.number.isRequired,
+  btnFn: PropTypes.func,
+  toggleActive: PropTypes.func,
+  numFav: PropTypes.number
 }
 
 export default Scroll;
