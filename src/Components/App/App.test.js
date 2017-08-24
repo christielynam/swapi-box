@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { mount, shallow } from 'enzyme';
-import App from './App/App';
+import fetchMock from 'fetch-mock';
+import App from './App';
 
 describe('App', () => {
   // let wrapper;
@@ -17,7 +18,7 @@ describe('App', () => {
   });
 
   it('should exist', () => {
-    expect(wrapper).toBe Defined()
+    expect(wrapper).toBeDefined()
   })
 
 
