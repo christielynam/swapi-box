@@ -31,11 +31,7 @@ class App extends Component {
 
     return Promise.all([films, people, planets, vehicles])
       .then(data => {
-        const error = data || data[0].detail.includes('Request was throttled.');
-
-        if(error) {
-          this.setState({errorStatus: 'Request was throttled. Not all data was loaded.'})
-        }
+        this.handleErrors(data.status)
 
         const People = this.fetchHomeworld(data[1].results)
           .then(data => this.fetchSpecies(data))
@@ -43,6 +39,7 @@ class App extends Component {
 
         return Promise.all([films, People, Planets, vehicles])
           .then(data => {
+            this.handleErrors(data.status)
             this.setState({data: this.cleanData(data)})
       })
     })
