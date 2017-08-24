@@ -19,7 +19,6 @@ class App extends Component {
     this.setFavorite = this.setFavorite.bind(this);
     this.favClicked = this.favClicked.bind(this);
     this.toggleActive = this.toggleActive.bind(this);
-    this.toggleFavorite = this.toggleFavorite.bind(this);
   }
 
 
@@ -138,14 +137,6 @@ class App extends Component {
     button.classList.toggle('active')
   }
 
-  toggleFavorite(button) {
-    const { data } = this.state
-    button.classList.toggle('favorite-active')
-    this.setState({
-      data: data
-    })
-  }
-
   favClicked() {
     this.setState({
       favClicked: true
@@ -192,7 +183,7 @@ class App extends Component {
               btnFn={this.changeCards} />
           </div>
           <CardContainer cardType={this.cardSet()}
-            toggleFavorite={this.toggleFavorite} setFavorite={this.setFavorite} />
+             setFavorite={this.setFavorite} />
         </div>
       )
     } else {
