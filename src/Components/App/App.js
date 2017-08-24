@@ -30,6 +30,7 @@ class App extends Component {
 
     return Promise.all([films, people, planets, vehicles])
       .then(data => {
+        console.log(data)
         const People = this.fetchHomeworld(data[1].results)
           .then(data => this.fetchSpecies(data))
         const Planets = this.fetchResidents(data[2].results)
@@ -70,7 +71,6 @@ class App extends Component {
   }
 
   fetchResidents(data) {
-
     const specificResidentsData = data.map( (planets, i) => {
 
       const specificResidents = planets.residents.map((link, i) => {
@@ -154,7 +154,7 @@ class App extends Component {
   }
 
   render() {
-    const { data, i, opening, favorites } = this.state
+    const { data, opening, favorites } = this.state
 
     if(data) {
       return (

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types'
 import './Button.css';
 
 const Button = ({ buttonText, className, num, btnFn, toggleActive }) => {
@@ -10,3 +11,11 @@ const Button = ({ buttonText, className, num, btnFn, toggleActive }) => {
 }
 
 export default Button;
+
+Button.propTypes = {
+  buttonText: PropTypes.string,
+  className: PropTypes.string,
+  num: PropTypes.number,
+  btnFn: PropTypes.func,
+  toggleActive: PropTypes.func
+}
