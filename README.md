@@ -1,4 +1,4 @@
-[screencapture-localhost-3000-2018-10-07-11_28_47.pdf](https://github.com/christielynam/swapi-box/files/2454138/screencapture-localhost-3000-2018-10-07-11_28_47.pdf)
+![screencapture-localhost-3000-2018-10-07-11_28_47.pdf](https://github.com/christielynam/swapi-box/files/2454138/screencapture-localhost-3000-2018-10-07-11_28_47.pdf)
 
 # SWAPIBOX (TURING SCHOOL MOD 3 PROJECT)
 
